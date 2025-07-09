@@ -232,6 +232,7 @@ p {
 }
 
 .teaser-content h2 {
+    font-family: 'Poetsen One', cursive;
     color: var(--dark-text);
     margin-bottom: 1rem;
     font-size: 1.5rem;
@@ -286,6 +287,7 @@ p {
 }
 
 .work-header h1 {
+    font-family: 'Poetsen One', cursive;
     margin-bottom: 1rem;
 }
 
@@ -337,6 +339,7 @@ p {
 }
 
 .project-content h3 {
+    font-family: 'Poetsen One', cursive;
     margin-bottom: 1rem;
     color: var(--dark-text);
 }
@@ -370,6 +373,7 @@ p {
 }
 
 .about-content h1 {
+    font-family: 'Poetsen One', cursive;
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -391,6 +395,7 @@ p {
 }
 
 .writing-section h2 {
+    font-family: 'Poetsen One', cursive;
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -418,6 +423,7 @@ p {
 }
 
 .writing-card h3 {
+    font-family: 'Poetsen One', cursive;
     margin: 0;
     font-size: 1.1rem;
 }
@@ -427,6 +433,7 @@ p {
 }
 
 .social-proof h2 {
+    font-family: 'Poetsen One', cursive;
     text-align: center;
     margin-bottom: 3rem;
 }
@@ -488,6 +495,7 @@ p {
 .work-introduction h2,
 .work-process h2,
 .work-results h2 {
+    font-family: 'Poetsen One', cursive;
     margin-bottom: 2rem;
 }
 
