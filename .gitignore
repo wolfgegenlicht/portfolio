@@ -35,3 +35,6 @@ build/
 # Temporary files
 *.tmp
 *.temp
+
+# Claude documentation
+CLAUDE.md
