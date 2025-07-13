@@ -9,64 +9,76 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/roughjs@4.5.2/bundled/rough.js"></script>
 </head>
 <body>
     <header class="header">
+        <div class="container">
         <nav class="nav">
-            <div class="logo">
-                <span>WS</span>
-            </div>
             <ul class="nav-links">
-                <li><a href="/portfolio/" class="active">Home</a></li>
-                <li><a href="/portfolio/work">Work</a></li>
-                <li><a href="/portfolio/about">About</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+        </div>
     </header>
 
     <main>
         <section class="hero">
-            <h1>I'm Wolfgang, a UX Designer creating <span class="highlight">fun</span>, memorable, and human experiences</h1>
+            <p class="pre-headline">UX Designer from Berlin</p>
+            <h1>Hey there! 👋 I'm Wolfgang, <br>I make <span class="rough-underline">complex</span> things <span class="rough-circle">simple</span></h1>
+            <p class="sub-headline">Been translating "make it pop" into actual design solutions since 2008. I speak fluent UX, Developer and Human.</p>
+
             <div class="hero-buttons">
                 <a href="resources/portfolio/cv.pdf" class="btn btn-primary" target="_blank">View CV</a>
                 <a href="mailto:hello@wolfgangstefani.com" class="btn btn-secondary">Email Me</a>
             </div>
         </section>
 
-        <section class="portfolio-teaser">
+        <section class="portfolio-teaser" id="work">
             <div class="container">
                 <div class="teaser-grid">
-                    <div class="teaser-card skewed" onclick="location.href='/portfolio/work-detail'">
+                    <div class="teaser-card skewed" onclick="location.href='zzv.html'">
                         <div class="teaser-content">
-                            <h2>Digital Product Design</h2>
-                            <p>A comprehensive design system for a modern web application with focus on user experience and accessibility.</p>
+                            <h2>The Dental Insurance Portal That Was Slowly Dying</h2>
                         </div>
                         <div class="teaser-image">
-                            <img src="resources/portfolio/portfolio-screen-desktop.jpg" alt="Portfolio Project 1">
+                            <img src="resources/portfolio/zzv-header.jpg" alt="Portfolio Project 1">
                         </div>
                     </div>
-                    <div class="teaser-card skewed" onclick="location.href='/portfolio/work-detail'">
+                    <div class="teaser-card skewed" onclick="location.href='schneeberger.html'">
                         <div class="teaser-content">
-                            <h2>Mobile App Interface</h2>
-                            <p>Intuitive mobile experience design that prioritizes user engagement and seamless navigation.</p>
+                            <h2>The B2B Product Maze That Even Engineers Couldn't Navigate</h2>
                         </div>
                         <div class="teaser-image">
-                            <img src="resources/portfolio/potfolio-screen-mobile.jpg" alt="Portfolio Project 2">
+                            <img src="resources/portfolio/schneeberger-header.jpg" alt="Portfolio Project 2">
                         </div>
                     </div>
-                    <div class="teaser-card skewed" onclick="location.href='/portfolio/work-detail'">
+                    
+                </div>
+                <div class="teaser-grid">
+                    <div class="teaser-card skewed" onclick="location.href='imagine.html'">
                         <div class="teaser-content">
-                            <h2>User Research & Strategy</h2>
-                            <p>Data-driven design decisions based on comprehensive user research and behavioral analysis.</p>
+                            <h2>Connecting 600+ Nigerian Graduates with Global Mentors in 3 Months</h2>
                         </div>
                         <div class="teaser-image">
-                            <img src="resources/portfolio/work-detail-page.png" alt="Portfolio Project 3">
+                            <img src="resources/portfolio/imagine-header.jpg" alt="Portfolio Project 2">
+                        </div>
+                    </div>
+                    <div class="teaser-card skewed" onclick="location.href='imagine.html'">
+                        <div class="teaser-content">
+                            <h2>Connecting 600+ Nigerian Graduates with Global Mentors in 3 Months</h2>
+                        </div>
+                        <div class="teaser-image">
+                            <img src="resources/portfolio/imagine-header.jpg" alt="Portfolio Project 2">
                         </div>
                     </div>
                 </div>
+
                 <div class="teaser-button">
-                    <a href="/portfolio/work" class="btn btn-primary">More work</a>
+                    <a href="work.html" class="btn btn-primary">More work</a>
                 </div>
             </div>
         </section>

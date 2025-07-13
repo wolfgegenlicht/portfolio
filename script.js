@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollTop = scrollTop;
     });
     
-    // Add loading animation
+    // Add loading animation for sections
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -46,34 +46,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('animate');
             }
         });
     }, observerOptions);
     
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.teaser-card, .project-card, .writing-card, .testimonial-card');
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
     });
     
-    // Add hover effect to skewed elements
-    const skewedElements = document.querySelectorAll('.skewed');
-    skewedElements.forEach(el => {
-        el.addEventListener('mouseenter', function() {
-            this.style.transform = 'rotate(0deg) translateY(-10px)';
+    // Timeline animation
+    const timeline = document.querySelector('.timeline');
+    if (timeline) {
+        const timelineItems = timeline.querySelectorAll('.timeline-item');
+        
+        const timelineObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Start the timeline line animation
+                    entry.target.classList.add('animate');
+                    
+                    // Animate each timeline item with staggered delays
+                    timelineItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, index * 200); // 200ms delay between each item
+                    });
+                    
+                    // Stop observing once animation is triggered
+                    timelineObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
         });
         
-        el.addEventListener('mouseleave', function() {
-            const isEven = Array.from(this.parentNode.children).indexOf(this) % 2 === 1;
-            this.style.transform = isEven ? 'rotate(2deg)' : 'rotate(-2deg)';
-        });
-    });
+        timelineObserver.observe(timeline);
+    }
     
+  
     // Add click effects to buttons
     const buttons = document.querySelectorAll('.btn');
     buttons.forEach(btn => {
@@ -161,6 +174,203 @@ document.addEventListener('DOMContentLoaded', function() {
     
     createMobileMenu();
     window.addEventListener('resize', createMobileMenu);
+    
+    // Initialize image zoom functionality
+    if (typeof mediumZoom !== 'undefined') {
+        mediumZoom('[data-zoomable]', {
+            background: 'rgba(0, 0, 0, 0.8)',
+            margin: 40,
+            scrollOffset: 80
+        });
+    }
+    
+    // Rough annotation system - supports both circle and underline with intersection observer
+    function createRoughAnnotation(element, type = 'circle', options = {}) {
+        if (!element || typeof rough === 'undefined') return;
+        
+        const container = element.closest('section') || document.body;
+        container.style.position = 'relative';
+        
+        let animationTriggered = false;
+        
+        function createAnnotation() {
+            if (animationTriggered) return;
+            animationTriggered = true;
+            
+            const rect = element.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            
+            if (rect.width === 0 || rect.height === 0) {
+                setTimeout(createAnnotation, 100);
+                return;
+            }
+            
+            // Calculate position relative to container
+            const centerX = rect.left - containerRect.left + rect.width / 2;
+            const centerY = rect.top - containerRect.top + rect.height / 2;
+            const width = rect.width + (options.padding || 25);
+            const height = rect.height + (options.padding || 20);
+            
+            // Create SVG element
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.classList.add('rough-annotation');
+            svg.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                overflow: visible;
+                pointer-events: none;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+            `;
+            
+            // Create rough.js instance for SVG
+            const rc = rough.svg(svg);
+            let annotation;
+            
+            // Generate different annotation types
+            if (type === 'circle') {
+                annotation = rc.ellipse(centerX, centerY, width, height, {
+                    stroke: options.color || '#fde74c',
+                    strokeWidth: options.strokeWidth || 3,
+                    roughness: options.roughness || 2.8,
+                    fill: 'none'
+                });
+            } else if (type === 'underline') {
+                const startX = rect.left - containerRect.left - 5;
+                const endX = rect.right - containerRect.left + 5;
+                const y = rect.bottom - containerRect.top + 5;
+                
+                annotation = rc.line(startX, y, endX, y, {
+                    stroke: options.color || '#fde74c',
+                    strokeWidth: options.strokeWidth || 3,
+                    roughness: options.roughness || 2.8
+                });
+            } else if (type === 'box') {
+                const x = rect.left - containerRect.left - 10;
+                const y = rect.top - containerRect.top - 10;
+                const boxWidth = rect.width + 20;
+                const boxHeight = rect.height + 20;
+                
+                annotation = rc.rectangle(x, y, boxWidth, boxHeight, {
+                    stroke: options.color || '#fde74c',
+                    strokeWidth: options.strokeWidth || 2,
+                    roughness: options.roughness || 2.5,
+                    fill: 'none'
+                });
+            }
+            
+            // Add annotation to SVG
+            svg.appendChild(annotation);
+            
+            // Add SVG to container
+            container.appendChild(svg);
+            
+            // Add CSS animation for drawing effect
+            const paths = svg.querySelectorAll('path');
+            paths.forEach((path, index) => {
+                const pathLength = path.getTotalLength();
+                path.style.strokeDasharray = pathLength;
+                path.style.strokeDashoffset = pathLength;
+                path.style.setProperty('--path-length', pathLength);
+                
+                // Add animation with staggered timing for multiple paths
+                const delay = index * 0.3; // 300ms delay between paths
+                const duration = options.duration || 1; // 1 second default
+                
+                path.style.animation = `rough-notation-dash ${duration}s ease-out ${delay}s forwards`;
+            });
+        }
+        
+        // Create intersection observer for this element
+        const annotationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animationTriggered) {
+                    // Wait for the specified delay, then create annotation
+                    setTimeout(() => {
+                        createAnnotation();
+                    }, options.delay || 0);
+                    
+                    // Stop observing once animation is triggered
+                    annotationObserver.unobserve(element);
+                }
+            });
+        }, {
+            threshold: 0.5, // Trigger when 50% of element is visible
+            rootMargin: '0px 0px -50px 0px' // Start animation slightly before element is fully in view
+        });
+        
+        // Start observing the element
+        annotationObserver.observe(element);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (animationTriggered) {
+                const existingSvg = container.querySelector('.rough-annotation');
+                if (existingSvg) {
+                    existingSvg.remove();
+                }
+                animationTriggered = false;
+                // Re-observe element after resize
+                annotationObserver.observe(element);
+            }
+        });
+    }
+    
+    // Apply annotations using classes - with sequential timing based on HTML order
+    
+    // Collect all annotation elements in document order
+    const allAnnotations = [];
+    
+    // Find all elements with annotation classes
+    document.querySelectorAll('.rough-circle, .rough-underline, .rough-box').forEach(element => {
+        let type = 'circle';
+        if (element.classList.contains('rough-underline')) type = 'underline';
+        else if (element.classList.contains('rough-box')) type = 'box';
+        
+        allAnnotations.push({ element, type });
+    });
+    
+    // Apply annotations in document order with staggered delays
+    allAnnotations.forEach((annotation, index) => {
+        const { element, type } = annotation;
+        
+        // ⚡ ANIMATION TIMING SETTINGS - Change these to customize speed
+        const ANIMATION_SETTINGS = {
+            startDelay: 200,        // Initial delay after scrolling into view (ms)
+            betweenDelay: 400,      // Delay between each annotation (ms)
+            drawingSpeed: 1.0       // How fast each annotation draws (seconds)
+        };
+        
+        // Base options for each type
+        const baseOptions = {
+            circle: {
+                color: '#fde74c',
+                strokeWidth: 3,
+                roughness: 2.8,
+                duration: ANIMATION_SETTINGS.drawingSpeed
+            },
+            underline: {
+                color: '#fde74c',
+                strokeWidth: 3,
+                roughness: 2.5,
+                duration: ANIMATION_SETTINGS.drawingSpeed
+            },
+            box: {
+                color: '#fde74c',
+                strokeWidth: 2,
+                roughness: 2.5,
+                duration: ANIMATION_SETTINGS.drawingSpeed
+            }
+        };
+        
+        // Apply annotation with sequential delay
+        createRoughAnnotation(element, type, {
+            ...baseOptions[type],
+            delay: ANIMATION_SETTINGS.startDelay + (index * ANIMATION_SETTINGS.betweenDelay)
+        });
+    });
 });
 
 // Add CSS for mobile menu
