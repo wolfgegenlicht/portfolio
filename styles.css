@@ -403,7 +403,7 @@ h1 .deemphasize {
 }
 
 .sub-headline {
-    max-width: 600px;
+    max-width: 768px;
     margin: 0 auto;
     font-size: 1.2rem;
     color: #666;
