@@ -255,6 +255,10 @@ p {
     transition: var(--transition);
 }
 
+.link svg {
+    transform: translateY(1px);
+}
+
 .result-container {
     max-width: 1024px;
     margin: 0 auto;
