@@ -9,7 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js"></script>
+        <script src="https://unpkg.com/roughjs@4.5.2/bundled/rough.js"></script>
 </head>
 <body>
     <header class="header">
@@ -17,10 +19,9 @@
         <nav class="nav">
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="index.html#work">Work</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+                <li><a href="index.html#work" class="active">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mailto:info@wolfgegenlicht.de">Contact</a></li>            </ul>
         </nav>
     </div>
     </header>
@@ -30,7 +31,7 @@
             <section class="">
                 <div class="container">
                     <header class="work-detail-header">
-                        <h1>The B2B Product Maze That Even Engineers Couldn't Navigate</h1>
+                        <h1>The <span class="rough-underline">B2B Product Maze</span> That Even Engineers Couldn't Navigate</h1>
                         <p><a class="link" target="_blank" href="https://www.schneeberger.com/">schneeberger.com</a></p>
                     </header>
                 </div>
@@ -76,47 +77,47 @@
                    
                     <h2 class="textcenter">What I actually did</h2>
                     <div class="solution-grid">
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">📊</div>
                             <h3>Stakeholder Research</h3>
                             <p>Conducted comprehensive stakeholder surveys to understand KPIs, target groups, and business requirements</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">🎯</div>
                             <h3>Top Task Analysis</h3>
                             <p>Identified and prioritized the most critical product information users need to make informed decisions</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">🔍</div>
                             <h3>Comprehensive UX Audit</h3>
                             <p>Audited individual product hub pages and product detail pages to identify usability issues</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">📋</div>
                             <h3>Content Architecture</h3>
                             <p>Mapped and analyzed the entire product structure across 86 different products</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">🔧</div>
                             <h3>Problem Analysis</h3>
                             <p>Detailed analysis of pain points across product hub pages and product detail pages</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">📈</div>
                             <h3>SEO Optimization</h3>
                             <p>Provided comprehensive SEO recommendations to improve product page discoverability</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">📝</div>
                             <h3>Strategic Recommendations</h3>
                             <p>Presented detailed audit findings with actionable improvement recommendations</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">🎨</div>
                             <h3>Design Implementation</h3>
                             <p>Created wireframes and UI designs based on UX audit findings and user needs</p>
                         </div>
-                        <div class="solution-box skewed">
+                        <div class="solution-box has-border skewed">
                             <div class="solution-icon">📊</div>
                             <h3>Analytics Review</h3>
                             <p>Analyzed user behavior data to identify patterns and validate design decisions</p>
@@ -303,7 +304,7 @@
             <section>   
                 <div class="container">
                  <h2>Key Takeaways</h2>
-                <ul>
+                <ul class="key-takeaways-list">
                     <li><strong>B2B users need efficiency:</strong> Technical users prioritize quick access to specifications and compatibility information over marketing content.</li>
                     <li><strong>Content architecture is critical:</strong> With 86+ products, a clear and consistent information structure becomes essential for usability.</li>
                     <li><strong>Stakeholder alignment matters:</strong> Understanding business goals and technical constraints early prevented scope creep and ensured realistic solutions.</li>
@@ -316,8 +317,11 @@
 
             <section class="work-navigation has-border-bottom">
                 <div class="container">
-                    <a href="/work" class="btn btn-secondary">← Back to Work</a>
-                    <a href="/work-detail" class="btn btn-primary">Next Project →</a>
+                                                         <div class="buttons-container">
+
+                    <a href="zzv.html" class="btn btn-secondary">← Last Project</a>
+                    <a href="imagine.html" class="btn btn-primary">Next Project →</a>
+                                                         </div>
                 </div>
             </section>
         </article>
@@ -327,8 +331,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-links">
-                    <a href="mailto:hello@wolfgangstefani.com">Email</a>
-                    <a href="https://linkedin.com/in/wolfgangstefani" target="_blank">LinkedIn</a>
+                    <a href="mailto:info@wolfgegenlicht.de">Email</a>
+                    <a href="https://www.linkedin.com/in/wolfgang-stefani-webdesign/" target="_blank">LinkedIn</a>
                 </div>
                 <p>© 2024 Wolfgang Stefani. All rights reserved.</p>
             </div>

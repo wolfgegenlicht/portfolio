@@ -1,3 +1,4 @@
+
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
     // Add smooth scrolling to all links
@@ -29,9 +30,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scrollTop > lastScrollTop && scrollTop > 100) {
             // Scrolling down
             header.style.transform = 'translateY(-100%)';
+            header.classList = 'header';
+
         } else {
             // Scrolling up
             header.style.transform = 'translateY(0)';
+            header.classList = 'header header-visible';
         }
         
         lastScrollTop = scrollTop;
@@ -177,11 +181,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize image zoom functionality
     if (typeof mediumZoom !== 'undefined') {
-        mediumZoom('[data-zoomable]', {
+        const zoom = mediumZoom('[data-zoomable]', {
             background: 'rgba(0, 0, 0, 0.8)',
             margin: 40,
             scrollOffset: 80
         });
+        
     }
     
     // Rough annotation system - supports both circle and underline with intersection observer
@@ -222,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pointer-events: none;
                 width: 100%;
                 height: 100%;
-                z-index: 10;
+                z-index: -1;
             `;
             
             // Create rough.js instance for SVG
@@ -339,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // ⚡ ANIMATION TIMING SETTINGS - Change these to customize speed
         const ANIMATION_SETTINGS = {
             startDelay: 200,        // Initial delay after scrolling into view (ms)
-            betweenDelay: 400,      // Delay between each annotation (ms)
+            betweenDelay: 200,      // Delay between each annotation (ms)
             drawingSpeed: 1.0       // How fast each annotation draws (seconds)
         };
         
@@ -371,6 +376,153 @@ document.addEventListener('DOMContentLoaded', function() {
             delay: ANIMATION_SETTINGS.startDelay + (index * ANIMATION_SETTINGS.betweenDelay)
         });
     });
+
+    // Initialize vanilla JS drag and drop for photos
+    const draggablePhotos = document.querySelectorAll('.draggable-photo');
+    const resizeHandles = document.querySelectorAll('.resize-handle');
+    const photoCanvas = document.getElementById('photo-canvas');
+    
+    if (photoCanvas && draggablePhotos.length > 0) {
+        let draggedElement = null;
+        let resizedElement = null;
+        let offset = { x: 0, y: 0 };
+        let initialSize = { width: 0, height: 0 };
+        let startPos = { x: 0, y: 0 };
+        let isDragging = false;
+        let isResizing = false;
+
+        // Add drag functionality to photos
+        draggablePhotos.forEach(photo => {
+            photo.addEventListener('mousedown', startDrag);
+            photo.addEventListener('touchstart', startDrag, { passive: false });
+        });
+
+        // Add resize functionality to handles
+        resizeHandles.forEach(handle => {
+            handle.addEventListener('mousedown', startResize);
+            handle.addEventListener('touchstart', startResize, { passive: false });
+        });
+
+        function startDrag(e) {
+            // Don't start dragging if clicking on resize handle
+            if (e.target.classList.contains('resize-handle')) return;
+            
+            e.preventDefault();
+            isDragging = true;
+            draggedElement = e.target.closest('.draggable-photo');
+            draggedElement.classList.add('photo-dragging');
+            
+            const rect = draggedElement.getBoundingClientRect();
+            const canvasRect = photoCanvas.getBoundingClientRect();
+            
+            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            
+            offset.x = clientX - rect.left;
+            offset.y = clientY - rect.top;
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function startResize(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isResizing = true;
+            resizedElement = e.target.closest('.draggable-photo');
+            resizedElement.classList.add('photo-resizing');
+            
+            const rect = resizedElement.getBoundingClientRect();
+            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            
+            initialSize.width = rect.width;
+            initialSize.height = rect.height;
+            startPos.x = clientX;
+            startPos.y = clientY;
+            
+            document.addEventListener('mousemove', resize);
+            document.addEventListener('touchmove', resize, { passive: false });
+            document.addEventListener('mouseup', stopResize);
+            document.addEventListener('touchend', stopResize);
+        }
+
+        function drag(e) {
+            if (!isDragging || !draggedElement) return;
+            
+            e.preventDefault();
+            
+            const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            
+            const canvasRect = photoCanvas.getBoundingClientRect();
+            const photoRect = draggedElement.getBoundingClientRect();
+            
+            let newX = clientX - canvasRect.left - offset.x;
+            let newY = clientY - canvasRect.top - offset.y;
+            
+            // Keep photo within canvas bounds
+            newX = Math.max(0, Math.min(newX, canvasRect.width - photoRect.width));
+            newY = Math.max(0, Math.min(newY, canvasRect.height - photoRect.height));
+            
+            draggedElement.style.left = newX + 'px';
+            draggedElement.style.top = newY + 'px';
+        }
+
+        function resize(e) {
+            if (!isResizing || !resizedElement) return;
+            
+            e.preventDefault();
+            
+            const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            
+            const deltaX = clientX - startPos.x;
+            const deltaY = clientY - startPos.y;
+            const delta = Math.max(deltaX, deltaY); // Use the larger delta for proportional scaling
+            
+            let newWidth = initialSize.width + delta;
+            let newHeight = 'auto';
+            
+            // Set minimum and maximum sizes
+            const minSize = 80;
+            const maxSize = 400;
+            
+            newWidth = Math.max(minSize, Math.min(newWidth, maxSize));
+            newHeight = Math.max(minSize, Math.min(newHeight, maxSize));
+            
+            resizedElement.style.width = newWidth + 'px';
+            resizedElement.style.height = newHeight + 'px';
+        }
+
+        function stopDrag() {
+            if (draggedElement) {
+                draggedElement.classList.remove('photo-dragging');
+                draggedElement = null;
+            }
+            isDragging = false;
+            
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        function stopResize() {
+            if (resizedElement) {
+                resizedElement.classList.remove('photo-resizing');
+                resizedElement = null;
+            }
+            isResizing = false;
+            
+            document.removeEventListener('mousemove', resize);
+            document.removeEventListener('touchmove', resize);
+            document.removeEventListener('mouseup', stopResize);
+            document.removeEventListener('touchend', stopResize);
+        }
+    }
 });
 
 // Add CSS for mobile menu

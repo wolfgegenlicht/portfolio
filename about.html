@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/roughjs@4.5.2/bundled/rough.js"></script>
 </head>
 <body>
     <header class="header">
@@ -16,76 +17,266 @@
         <nav class="nav">
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="work.html">Work</a></li>
+                <li><a href="index.html#work">Work</a></li>
                 <li><a href="about.html" class="active">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+                <li><a href="mailto:info@wolfgegenlicht.de">Contact</a></li>            </ul>
         </nav>
         </div>
     </header>
 
     <main>
-        <section class="about-header">
+        <!-- Hero Section -->
+        <section class="hero">
             <div class="container">
-                <div class="about-image">
-                    <img src="resources/about/about.webp" alt="Wolfgang Stefani">
-                </div>
-            </div>
-        </section>
-
-        <section class="about-content">
-            <div class="container">
-                <h1>About Me</h1>
+                <p class="pre-headline">UX/UI Designer from Berlin</p>
+                <h1>Hey there! 👋 I'm Wolfgang. <br>Bridging the gap between <span class="rough-underline">people</span> and <span class="rough-underline">pixels</span>.</h1>
                 <div class="about-text">
-                    <p>I'm a passionate UX Designer with over 5 years of experience creating digital experiences that put users first. My approach combines analytical thinking with creative problem-solving to deliver solutions that are both beautiful and functional.</p>
+                   <p>I'm a UX/UI Designer with <strong>over 10 years of experience</strong>. </p>
                     
-                    <p>I specialize in user research, interaction design, and design systems. I believe that great design is invisible – it solves problems seamlessly while creating delightful experiences that users love.</p>
+                    <p>My approach? Figure out what users actually need (not what we think they need), then build something that doesn't make them want to throw their laptop out the window.</p>
                     
-                    <p>When I'm not designing, you can find me exploring new technologies, reading about psychology and human behavior, or enjoying the outdoors. I'm always eager to learn and grow, both personally and professionally.</p>
+                    <p>I do user research, UI/UX design and design systems. Basically, I'm the person who asks "but why would someone click that?" before anyone builds it. </p>
+                    <p>I believe good design should be like a good joke: <strong>if you have to explain it, it's probably not working.</strong></p>
+                    
+                    <p>When I'm not staring at Figma, you'll find me diving into tons of books about psychology and behavioral economics (and yes, sometimes also fiction, fantasy and sci-fi books), tinkering with new AI tools, or attempting to explain to my friends why that button placement is giving me anxiety. </p>
+                <p>I'm always learning something new, whether it's a design trend or why humans do the weird things they do.</p> 
                 </div>
             </div>
         </section>
 
-        <section class="writing-section">
-            <div class="container">
-                <h2>Writing</h2>
-                <div class="writing-grid">
-                    <a href="https://medium.com/@wolfgangstefani/the-future-of-ux-design" target="_blank" class="writing-card skewed">
-                        <h3>The Future of UX Design</h3>
-                    </a>
-                    <a href="https://medium.com/@wolfgangstefani/design-systems-at-scale" target="_blank" class="writing-card skewed">
-                        <h3>Design Systems at Scale</h3>
-                    </a>
-                    <a href="https://medium.com/@wolfgangstefani/user-research-methods" target="_blank" class="writing-card skewed">
-                        <h3>User Research Methods</h3>
-                    </a>
-                    <a href="https://medium.com/@wolfgangstefani/accessibility-in-design" target="_blank" class="writing-card skewed">
-                        <h3>Accessibility in Design</h3>
-                    </a>
+        <!-- Image Section -->
+        <section class="about-section about-image-section">
+            <div class="container-xl">
+                <div class="photo-canvas" id="photo-canvas">
+                    <div class="draggable-photo" data-photo="1">
+                        <img src="resources/about/about-profile1.png" alt="Wolfgang profile 1">
+                        <div class="resize-handle"></div>
+                    </div>
+                    <div class="draggable-photo" data-photo="2">
+                        <img src="resources/about/about-profile2.png" alt="Wolfgang profile 2">
+                        <div class="resize-handle"></div>
+                    </div>
+                    <div class="draggable-photo" data-photo="3">
+                        <img src="resources/about/about-profile3.png" alt="Wolfgang profile 3">
+                        <div class="resize-handle"></div>
+                    </div>
+                    <div class="draggable-photo" data-photo="4">
+                        <img src="resources/about/about-profile4.png" alt="Wolfgang profile 4">
+                        <div class="resize-handle"></div>
+                    </div>
+                    <div class="draggable-photo" data-photo="5">
+                        <img src="resources/about/about-profile5.png" alt="Wolfgang profile 5">
+                        <div class="resize-handle"></div>
+                    </div>
+                    <div class="draggable-photo" data-photo="6">
+                        <img src="resources/about/about-profile6.png" alt="Wolfgang profile 6">
+                        <div class="resize-handle"></div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="social-proof">
+        <!-- Experience Section -->
+        <section class="about-section experience-section">
+            <div class="container-xl">
+                <h2><span class="rough-underline">Experience</span> & Background</h2>
+                <div class="experience-grid">
+                    <div class="experience-item has-border">
+                        <h3>Self-Employed UX/UI Designer</h3>
+                        <p class="period">2019 - Present</p>
+                        <p>Leading strategic positioning projects for companies, entrepreneurs, and NGOs. Conducting workshops for online strategy development and delivering end-to-end UX solutions.</p>
+                        <ul class="checklist">
+                            <li>User research and usability testing</li>
+                            <li>Information architecture and wireframing</li>
+                            <li>Rapid prototyping and iterative design</li>
+                            <li>Analytics-driven optimization and A/B testing</li>
+                            <li>Stakeholder workshops and client collaboration</li>
+                            <li>Technical implementation and front-end QA</li>
+                        </ul>
+                        
+                        <a href="https://www.wolfgegenlicht.de" target="_blank" class="btn btn-secondary">Webdesign Business Website</a>
+
+                    </div>
+                    <div class="experience-item has-border">
+                        <h3>Agency Experience</h3>
+                        <p class="period">2015 - 2019</p>
+                        <p>Web Designer & Developer at WDM Webdesign München, gaining valuable experience in client work, project management, and collaborative design processes.</p>
+                        <ul class="checklist">
+                            <li>Web design and development for diverse clients</li>
+                            <li>Project management and client communication</li>
+                            <li>Collaborative design processes in team environment</li>
+                            <li>Prototyping and iterative design</li>
+                            <li>Technical implementation and problem-solving</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item has-border">
+                        <h3>Education</h3>
+                        <p class="period">2011 - 2015</p>
+                        <p>Bachelor of Engineering in Media Technology from Technische Hochschule Deggendorf. Thesis: "Application of Design Patterns for Responsive Website Modules"</p>
+                    </div>
+                    <div class="experience-item has-border">
+                        <h3>Media Designer</h3>
+                        <p class="period">2004 - 2009</p>
+                        <p>Started as apprentice and progressed to Media Designer role at Landshuter Zeitung. Mastered design principles, typography and visual communication in media production.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="about-section skills-section">
+            <div class="container-xl">
+                <h2>Skills & <span class="rough-underline">Expertise</span></h2>
+                <div class="skills-grid">
+                    <div class="skill-category has-border skewed">
+                        <h3>Design & Research</h3>
+                        <ul>
+                            <li class="emoji-list"><span class="emoji">🎨</span> User Experience and Interface Design</li>
+                            <li class="emoji-list"><span class="emoji">🔍</span> User Research & Testing</li>
+                            <li class="emoji-list"><span class="emoji">🎙️</span> User Interviews</li>
+                            <li class="emoji-list"><span class="emoji">🏗️</span> Information Architecture</li>
+                            <li class="emoji-list"><span class="emoji">📱</span> Prototyping & Wireframing</li>
+                            <li class="emoji-list"><span class="emoji">🧩</span> Design Systems</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category  has-border skewed">
+                        <h3>Tools & Technology</h3>
+                        <ul>
+                            <li class="emoji-list"><span class="emoji">🎯</span> Figma, Miro, Boardmix, Notion</li>
+                            <li class="emoji-list"><span class="emoji">💻</span> HTML, CSS, JavaScript, PHP</li>
+                            <li class="emoji-list"><span class="emoji">🌐</span> WordPress</li>
+                            <li class="emoji-list"><span class="emoji">🤖</span> AI Tools (Claude, Claude Code, Gemini, Midjourney)</li>
+                            <li class="emoji-list"><span class="emoji">🎨</span> Adobe Creative Suite</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category  has-border skewed">
+                        <h3>Specialized Knowledge</h3>
+                        <ul>
+                            <li class="emoji-list"><span class="emoji">🧠</span> Behavioral Economics</li>
+                            <li class="emoji-list"><span class="emoji">🧭</span> Psychology & User Behavior</li>
+                            <li class="emoji-list"><span class="emoji">📈</span> SEO & Digital Marketing</li>
+                            <li class="emoji-list"><span class="emoji">📊</span> Business Strategy</li>
+                            <li class="emoji-list"><span class="emoji">🎪</span> Workshop Facilitation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Philosophy Section -->
+        <section class="about-section">
             <div class="container">
-                <h2>What Clients Say</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card skewed">
-                        <p>"Wolfgang's attention to detail and user-centered approach transformed our product. The results speak for themselves."</p>
-                        <cite>- Sarah Johnson, Product Manager</cite>
+                <h2>Work <span class="">Philosophy</span></h2>
+                <div class="">
+                    <div class="philosophy-text">
+                        <p>Great design isn't just about making things look pretty... It's about solving real problems for real people. My approach is rooted in understanding user needs, business objectives, and technical constraints.</p>
+                        
+                        <h3>What makes me <span class="rough-circle">different</span>:</h3>
+                        <ul>
+                            <li><strong>No jargon juggling</strong>: I speak in clear, understandable language</li>
+                            <li><strong>Focus on essentials</strong>: Not chasing trends, but solving problems</li>
+                            <li><strong>Collaborative approach</strong>: Working together, not performing solo</li>
+                            <li><strong>Love for Devs</strong>: Speaking their language so we can build great things together, not fight over impossible designs</li>
+                            <li><strong>Business understanding</strong>: Balancing user needs with business goals</li>
+                        </ul>
                     </div>
-                    <div class="testimonial-card skewed">
-                        <p>"Working with Wolfgang was a game-changer. His design thinking elevated our entire user experience."</p>
-                        <cite>- Michael Chen, CEO</cite>
+                </div>
+            </div>
+        </section>
+
+     
+
+        <!-- Personal Approach Section -->
+        <section class="about-section personal-section">
+            <div class="container-xl">
+                <h2>Working <span class="rough-underline">With Me</span></h2>
+                <div class="personal-grid">
+                    <div class="personal-item has-border">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path d="M69.3 4C58.3-3.3 43.4-.3 36 10.7s-4.4 25.9 6.7 33.3l48 32c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L69.3 4zM597.3 44c11-7.4 14-22.3 6.7-33.3s-22.3-14-33.3-6.7l-48 32c-11 7.4-14 22.3-6.7 33.3s22.3 14 33.3 6.7l48-32zM24 160c-13.3 0-24 10.7-24 24s10.7 24 24 24l64 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-64 0zm528 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l64 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-64 0zM117.3 332c11-7.4 14-22.3 6.7-33.3s-22.3-14-33.3-6.7l-48 32c-11 7.4-14 22.3-6.7 33.3s22.3 14 33.3 6.7l48-32zm432-39.9c-11-7.4-25.9-4.4-33.3 6.7s-4.4 25.9 6.7 33.3l48 32c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3l-48-32zM448 176c0 27.2-8.4 52.3-22.8 72.9c-3.7 5.3-8 11.3-12.7 17.7c0 0 0 0 0 0s0 0 0 0s0 0 0 0s0 0 0 0c-12.9 17.7-28.3 38.9-39.8 59.8c-10.4 19-15.7 38.8-18.3 57.5l48.6 0c2.2-12 5.9-23.7 11.8-34.5c9.9-18 22.2-34.9 34.5-51.8c0 0 0 0 0 0s0 0 0 0s0 0 0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C496 78.8 417.2 0 320 0S144 78.8 144 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4c0 0 0 0 0 0s0 0 0 0c12.3 16.8 24.6 33.7 34.5 51.8c5.9 10.8 9.6 22.5 11.8 34.5l48.6 0c-2.6-18.7-7.9-38.6-18.3-57.5c-11.5-20.9-26.9-42.1-39.8-59.8c0 0 0 0 0 0s0 0 0 0c-4.7-6.4-9-12.4-12.8-17.7C200.4 228.3 192 203.2 192 176c0-70.7 57.3-128 128-128s128 57.3 128 128zm-176 0c0-26.5 21.5-48 48-48c8.8 0 16-7.2 16-16s-7.2-16-16-16c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16s16-7.2 16-16zM400 432l0-16-160 0 0 16c0 44.2 35.8 80 80 80s80-35.8 80-80z"/></svg></div> 
+                        <h3>Problem-Solver</h3>
+                        <p>I can explain complex concepts simply, ensuring everyone on the team understands and can contribute effectively.</p>
                     </div>
-                    <div class="testimonial-card skewed">
-                        <p>"Wolfgang delivers exceptional work with great communication. A true professional."</p>
-                        <cite>- Lisa Rodriguez, Marketing Director</cite>
+                    <div class="personal-item has-border">
+                       <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path d="M337 81c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-143 143L97 127c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l80 80c9.4 9.4 24.6 9.4 33.9 0L337 81zM441 201c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-247 247L41 295c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L143 465c9.4 9.4 24.6 9.4 33.9 0L441 201z"/></svg></div> 
+
+                        <h3>Self-Directed</h3>
+                        <p>I take ownership without needing constant guidance, while maintaining open communication and collaboration.</p>
                     </div>
-                    <div class="testimonial-card skewed">
-                        <p>"The design system Wolfgang created has streamlined our entire development process."</p>
-                        <cite>- David Kim, Lead Developer</cite>
+                    <div class="personal-item has-border">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path d="M48 416l0 48 64 0 0-48-64 0zm88 89.6c-7.1 4.1-15.3 6.4-24 6.4l-64 0c-26.5 0-48-21.5-48-48l0-48 0-24 0-24L0 144l0-24L0 96 0 48C0 21.5 21.5 0 48 0l64 0c8.7 0 16.9 2.3 24 6.4C143.1 2.3 151.3 0 160 0l64 0c20.6 0 38.1 12.9 45 31.1c5.6-6.1 12.9-10.7 21.4-13L349.9 1.6c24.7-6.8 50.1 8.3 56.7 33.8l18 69.2 6 23.2 61.8 238.3 6 23.2 11.9 46c6.6 25.5-8 51.7-32.7 58.5l-59.6 16.5c-24.7 6.8-50.1-8.3-56.7-33.8l-18-69.2-6-23.2L275.6 145.9 272 132.2l0 11.8 0 224 0 24 0 24 0 48c0 26.5-21.5 48-48 48l-64 0c-8.7 0-16.9-2.3-24-6.4zM160 464l64 0 0-48-64 0 0 48zM112 48L48 48l0 48 64 0 0-48zm0 96l-64 0 0 224 64 0 0-224zm48-48l64 0 0-48-64 0 0 48zm64 272l0-224-64 0 0 224 64 0zm216.1-12.3l-55.8-215-56.5 15.6 55.8 215 56.5-15.6zm-44.4 62.1l11.9 45.7L464 447.9c0-.1 0-.2 0-.3l0-.1-11.7-45.2-56.5 15.6zm-79.9-308l56.5-15.6L360.4 48.5 304 64.1c0 .1 0 .2 0 .4l11.7 45.2z"/></svg></div> 
+
+                        <h3>Continuous Learner</h3>
+                        <p>I'm constantly updating my knowledge in design, psychology, technology, and business to stay ahead of the curve.</p>
                     </div>
+                    <div class="personal-item has-border">
+                         <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc.--><path d="M336 192c0-79.5-64.5-144-144-144S48 112.5 48 192l0 176c0 53 43 96 96 96s96-43 96-96c0-21.7 10.9-42.6 29.8-54.8C309.7 287.5 336 242.8 336 192zm48 0c0 67.8-35.1 127.4-88.2 161.5c-4.9 3.2-7.8 8.6-7.8 14.5c0 79.5-64.5 144-144 144S0 447.5 0 368L0 192C0 86 86 0 192 0S384 86 384 192zm-256 0l0 20.2c0 3 1.7 5.8 4.4 7.2l14 7c18.1 9.1 29.5 27.6 29.5 47.8c0 15.9-7 30.9-19.2 41.1l-37.4 31.2c-10.2 8.5-25.3 7.1-33.8-3.1s-7.1-25.3 3.1-33.8L126 278.4c1.2-1 2-2.6 2-4.2c0-2.1-1.2-4-3-4.9l-14-7c-19-9.5-31-28.9-31-50.1L80 192c0-61.9 50.1-112 112-112s112 50.1 112 112l0 8c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-8c0-35.3-28.7-64-64-64s-64 28.7-64 64z"/></svg></div> 
+                        <h3>Active Listener</h3>
+                        <p>I focus on understanding the real problem before jumping to solutions, ensuring we're solving the right challenges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Facts Section -->
+        <section class="about-section fun-facts-section">
+            <div class="container-xl">
+                <h2><span class="rough-underline">Beyond</span> Pixels & Prototypes</h2>
+                <div class="fun-facts">
+                    <div class="fact skewed has-border">
+                        <h3>🌍 <br>Languages</h3>
+                        <p><strong>Native German, English (C1)</strong> <br><span class="deemphasize">and terrible Spanish (basically "hola" and "adios" level)</span> </p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>🧠 <br>Psychology Enthusiast</h3>
+                        <p>My passion for behavioral economics and psychology helps me create better user experiences</p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>🤖 <br>AI Early Adopter</h3>
+                        <p>Actively exploring AI tools and their applications in design and development processes</p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>🎵 <br>Electronic Music Producer</h3>
+                        <p>I create electronic music in my spare time and I'm currently learning to DJ. <span class="deemphasize">My producer name is nasewise</span></p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>🍄 <br>Mushroom Hunter</h3>
+                        <p>I love foraging for mushrooms in Berlin's forests. <span class="deemphasize">I only know a few species, but importantly, they're the ones that won't kill me</span></p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>🧗‍♂️ <br>Bouldering & Skatesurfing</h3>
+                        <p>You'll often find me bouldering or skatesurfing at Tempelhofer Feld in Berlin. <span class="deemphasize">Perfect combo of problem-solving and trying not to fall on my face</span></p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>✈️ <br>Travel Enthusiast</h3>
+                        <p>I'm constantly exploring new places around the world, collecting inspiration and cultural insights along the way</p>
+                    </div>
+                    <div class="fact skewed has-border">
+                        <h3>🤓 <br>Nerd</h3>
+                        <p>I get genuinely excited about psychology, new technologies, design patterns and random topic deep-dives. <span class="deemphasize">My friends have learned to just nod and smile</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Availability Section -->
+        <section class="about-section availability-section">
+            <div class="container">
+                <h2>Currently <span class="rough-underline">Available</span></h2>
+                <div class="availability-content">
+                    <p>I'm open to new opportunities and collaborations. Whether you're looking for:</p>
+                    <ul>
+                        <li>Full-time UX/UI Designer positions</li>
+                        <li>Contract/Freelance projects</li>
+                        <li>Design consultation and workshops</li>
+                        <li>Strategic UX/UI partnerships</li>
+                    </ul>
+                    <p>Let's discuss how we can work together to create exceptional user experiences.</p>
+                 <div class="buttons-container">
+
+                <a href="resources/portfolio/cv.pdf" class="btn btn-primary" target="_blank">View CV</a>
+                <a href="mailto:hello@wolfgangstefani.com" class="btn btn-secondary">Email Me</a>
+                </div>
+
                 </div>
             </div>
         </section>
@@ -95,7 +286,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-links">
-                    <a href="mailto:hello@wolfgangstefani.com">Email</a>
+                    <a href="mailto:info@wolfgegenlicht.de">Email</a>
                     <a href="https://linkedin.com/in/wolfgangstefani" target="_blank">LinkedIn</a>
                 </div>
                 <p>&copy; 2024 Wolfgang Stefani. All rights reserved.</p>
@@ -104,5 +295,6 @@
     </footer>
 
     <script src="script.js"></script>
+
 </body>
 </html>
