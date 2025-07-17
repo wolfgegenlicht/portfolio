@@ -1601,6 +1601,10 @@ section.animate {
 }
 
 /* Footer */
+.footer p a {
+    color: var(--dark-text-deemphasize)
+}
+
 .footer {
     margin-top: 96px;
     padding: 40px 0 40px;
