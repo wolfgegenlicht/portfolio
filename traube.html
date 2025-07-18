@@ -747,14 +747,12 @@
                 if (typeof mermaid !== 'undefined' && typeof d3 !== 'undefined') {
                     // Use mermaid's callback to ensure diagrams are rendered
                     mermaid.init(undefined, document.querySelectorAll('.mermaid')).then(() => {
-                        console.log('Mermaid diagrams rendered successfully');
                         setTimeout(() => {
                             initializeZoom();
                             initializeZoom2();
                             initializeZoom3();
                         }, 500); // Small delay to ensure SVG is in DOM
                     }).catch(error => {
-                        console.error('Mermaid rendering failed:', error);
                         // Fallback: try to initialize zoom anyway
                         setTimeout(() => {
                             initializeZoom();
@@ -763,7 +761,6 @@
                         }, 2000);
                     });
                 } else {
-                    console.log('Waiting for mermaid and d3 to load...');
                     setTimeout(waitForMermaidAndInitialize, 100);
                 }
             }
@@ -773,15 +770,10 @@
 
 
         function initializeZoom() {
-            console.log('Initializing zoom for diagram 1...');
             const mermaidContainer = document.querySelector('.mermaid-container');
             svg = document.querySelector('#mermaid-diagram svg');
             
-            console.log('Container found:', !!mermaidContainer);
-            console.log('SVG found:', !!svg);
-            
             if (!svg || !mermaidContainer) {
-                console.warn('Could not find mermaid container or SVG for diagram 1');
                 return;
             }
             
@@ -809,9 +801,8 @@
                     e.preventDefault();
                 });
                 
-                console.log('Zoom initialized successfully for diagram 1');
             } catch (error) {
-                console.error('Error initializing zoom for diagram 1:', error);
+                // Silently fail
             }
         }
 
@@ -849,15 +840,10 @@
         }
 
         function initializeZoom2() {
-            console.log('Initializing zoom for diagram 2...');
             const mermaidContainer2 = document.querySelector('#mermaid-container-2');
             svg2 = document.querySelector('#mermaid-diagram-2 svg');
             
-            console.log('Container 2 found:', !!mermaidContainer2);
-            console.log('SVG 2 found:', !!svg2);
-            
             if (!svg2 || !mermaidContainer2) {
-                console.warn('Could not find mermaid container or SVG for diagram 2');
                 return;
             }
             
@@ -885,9 +871,8 @@
                     e.preventDefault();
                 });
                 
-                console.log('Zoom initialized successfully for diagram 2');
             } catch (error) {
-                console.error('Error initializing zoom for diagram 2:', error);
+                // Silently fail
             }
         }
 
@@ -925,15 +910,10 @@
         }
 
         function initializeZoom3() {
-            console.log('Initializing zoom for diagram 3...');
             const mermaidContainer3 = document.querySelector('#mermaid-container-3');
             svg3 = document.querySelector('#mermaid-diagram-3 svg');
             
-            console.log('Container 3 found:', !!mermaidContainer3);
-            console.log('SVG 3 found:', !!svg3);
-            
             if (!svg3 || !mermaidContainer3) {
-                console.warn('Could not find mermaid container or SVG for diagram 3');
                 return;
             }
             
@@ -961,9 +941,8 @@
                     e.preventDefault();
                 });
                 
-                console.log('Zoom initialized successfully for diagram 3');
             } catch (error) {
-                console.error('Error initializing zoom for diagram 3:', error);
+                // Silently fail
             }
         }
 
