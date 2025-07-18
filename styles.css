@@ -152,7 +152,7 @@ body {
 .error-background {
 border: 1px solid #ffd6d6;
     background: rgb(255 247 247);    
-    padding: 32px 48px;
+    padding: 32px 32px;
     border-radius: 12px;
     margin-bottom: 2rem;
 }
@@ -1638,6 +1638,14 @@ section.animate {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
+    .error-background {
+
+    padding: 24px 24px;
+
+}
+
+
     .nav-links {
         gap: 1rem;
     }
