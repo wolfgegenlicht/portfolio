@@ -30,10 +30,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js"></script>
-    <script src="https://unpkg.com/roughjs@4.5.2/bundled/rough.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js" integrity="sha256-1rA678n2xEx7x4cTZ5x4wpUCj6kUMZEZ5cxLSVSFWxw=" crossorigin="anonymous" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js" integrity="sha256-d4BadaBqAzKScI2IKwvr6EWnOiabVw8hqJCR7HN7QaM=" crossorigin="anonymous" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/roughjs@4.5.2/bundled/rough.js" integrity="sha256-kJIEjCTqe11GHJGNuCnzWfTjY6WoqJ1vdA3jG3mWqRs=" crossorigin="anonymous" async></script>
 </head>
 <body>
     <header class="header">
@@ -742,42 +742,77 @@
 
         // Initialize zoom functionality after mermaid renders
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                initializeZoom();
-                initializeZoom2();
-                initializeZoom3();
-            }, 1000); // Wait for mermaid to render
+            // Wait for mermaid to be fully loaded and rendered
+            function waitForMermaidAndInitialize() {
+                if (typeof mermaid !== 'undefined' && typeof d3 !== 'undefined') {
+                    // Use mermaid's callback to ensure diagrams are rendered
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid')).then(() => {
+                        console.log('Mermaid diagrams rendered successfully');
+                        setTimeout(() => {
+                            initializeZoom();
+                            initializeZoom2();
+                            initializeZoom3();
+                        }, 500); // Small delay to ensure SVG is in DOM
+                    }).catch(error => {
+                        console.error('Mermaid rendering failed:', error);
+                        // Fallback: try to initialize zoom anyway
+                        setTimeout(() => {
+                            initializeZoom();
+                            initializeZoom2();
+                            initializeZoom3();
+                        }, 2000);
+                    });
+                } else {
+                    console.log('Waiting for mermaid and d3 to load...');
+                    setTimeout(waitForMermaidAndInitialize, 100);
+                }
+            }
+            
+            waitForMermaidAndInitialize();
         });
 
 
         function initializeZoom() {
+            console.log('Initializing zoom for diagram 1...');
             const mermaidContainer = document.querySelector('.mermaid-container');
             svg = document.querySelector('#mermaid-diagram svg');
             
-            if (!svg || !mermaidContainer) return;
+            console.log('Container found:', !!mermaidContainer);
+            console.log('SVG found:', !!svg);
             
-            // Create zoom behavior
-            zoomBehavior = d3.zoom()
-                .scaleExtent([0.1, Infinity])
-                .on('zoom', function(event) {
-                    svg.style.transform = `translate(${event.transform.x}px, ${event.transform.y}px) scale(${event.transform.k})`;
+            if (!svg || !mermaidContainer) {
+                console.warn('Could not find mermaid container or SVG for diagram 1');
+                return;
+            }
+            
+            try {
+                // Create zoom behavior
+                zoomBehavior = d3.zoom()
+                    .scaleExtent([0.1, Infinity])
+                    .on('zoom', function(event) {
+                        svg.style.transform = `translate(${event.transform.x}px, ${event.transform.y}px) scale(${event.transform.k})`;
+                    });
+                
+                // Apply zoom to container
+                d3.select(mermaidContainer).call(zoomBehavior);
+                
+                // Set initial zoom to a reasonable scale
+                setTimeout(() => {
+                    d3.select(mermaidContainer).call(
+                        zoomBehavior.transform,
+                        d3.zoomIdentity.scale(3.5)
+                    );
+                }, 100);
+                
+                // Enable wheel zoom
+                mermaidContainer.addEventListener('wheel', function(e) {
+                    e.preventDefault();
                 });
-            
-            // Apply zoom to container
-            d3.select(mermaidContainer).call(zoomBehavior);
-            
-            // Set initial zoom to a reasonable scale
-            setTimeout(() => {
-                d3.select(mermaidContainer).call(
-                    zoomBehavior.transform,
-                    d3.zoomIdentity.scale(3.5)
-                );
-            }, 100);
-            
-            // Enable wheel zoom
-            mermaidContainer.addEventListener('wheel', function(e) {
-                e.preventDefault();
-            });
+                
+                console.log('Zoom initialized successfully for diagram 1');
+            } catch (error) {
+                console.error('Error initializing zoom for diagram 1:', error);
+            }
         }
 
         function zoomIn() {
@@ -814,33 +849,46 @@
         }
 
         function initializeZoom2() {
+            console.log('Initializing zoom for diagram 2...');
             const mermaidContainer2 = document.querySelector('#mermaid-container-2');
             svg2 = document.querySelector('#mermaid-diagram-2 svg');
             
-            if (!svg2 || !mermaidContainer2) return;
+            console.log('Container 2 found:', !!mermaidContainer2);
+            console.log('SVG 2 found:', !!svg2);
             
-            // Create zoom behavior for second diagram
-            zoomBehavior2 = d3.zoom()
-                .scaleExtent([0.1, Infinity])
-                .on('zoom', function(event) {
-                    svg2.style.transform = `translate(${event.transform.x}px, ${event.transform.y}px) scale(${event.transform.k})`;
+            if (!svg2 || !mermaidContainer2) {
+                console.warn('Could not find mermaid container or SVG for diagram 2');
+                return;
+            }
+            
+            try {
+                // Create zoom behavior for second diagram
+                zoomBehavior2 = d3.zoom()
+                    .scaleExtent([0.1, Infinity])
+                    .on('zoom', function(event) {
+                        svg2.style.transform = `translate(${event.transform.x}px, ${event.transform.y}px) scale(${event.transform.k})`;
+                    });
+                
+                // Apply zoom to container
+                d3.select(mermaidContainer2).call(zoomBehavior2);
+                
+                // Set initial zoom to a reasonable scale
+                setTimeout(() => {
+                    d3.select(mermaidContainer2).call(
+                        zoomBehavior2.transform,
+                        d3.zoomIdentity.scale(3.5)
+                    );
+                }, 100);
+                
+                // Enable wheel zoom
+                mermaidContainer2.addEventListener('wheel', function(e) {
+                    e.preventDefault();
                 });
-            
-            // Apply zoom to container
-            d3.select(mermaidContainer2).call(zoomBehavior2);
-            
-            // Set initial zoom to a reasonable scale
-            setTimeout(() => {
-                d3.select(mermaidContainer2).call(
-                    zoomBehavior2.transform,
-                    d3.zoomIdentity.scale(3.5)
-                );
-            }, 100);
-            
-            // Enable wheel zoom
-            mermaidContainer2.addEventListener('wheel', function(e) {
-                e.preventDefault();
-            });
+                
+                console.log('Zoom initialized successfully for diagram 2');
+            } catch (error) {
+                console.error('Error initializing zoom for diagram 2:', error);
+            }
         }
 
         function zoomIn2() {
@@ -877,33 +925,46 @@
         }
 
         function initializeZoom3() {
+            console.log('Initializing zoom for diagram 3...');
             const mermaidContainer3 = document.querySelector('#mermaid-container-3');
             svg3 = document.querySelector('#mermaid-diagram-3 svg');
             
-            if (!svg3 || !mermaidContainer3) return;
+            console.log('Container 3 found:', !!mermaidContainer3);
+            console.log('SVG 3 found:', !!svg3);
             
-            // Create zoom behavior for third diagram
-            zoomBehavior3 = d3.zoom()
-                .scaleExtent([0.1, Infinity])
-                .on('zoom', function(event) {
-                    svg3.style.transform = `translate(${event.transform.x}px, ${event.transform.y}px) scale(${event.transform.k})`;
+            if (!svg3 || !mermaidContainer3) {
+                console.warn('Could not find mermaid container or SVG for diagram 3');
+                return;
+            }
+            
+            try {
+                // Create zoom behavior for third diagram
+                zoomBehavior3 = d3.zoom()
+                    .scaleExtent([0.1, Infinity])
+                    .on('zoom', function(event) {
+                        svg3.style.transform = `translate(${event.transform.x}px, ${event.transform.y}px) scale(${event.transform.k})`;
+                    });
+                
+                // Apply zoom to container
+                d3.select(mermaidContainer3).call(zoomBehavior3);
+                
+                // Set initial zoom to a reasonable scale
+                setTimeout(() => {
+                    d3.select(mermaidContainer3).call(
+                        zoomBehavior3.transform,
+                        d3.zoomIdentity.scale(3.5)
+                    );
+                }, 100);
+                
+                // Enable wheel zoom
+                mermaidContainer3.addEventListener('wheel', function(e) {
+                    e.preventDefault();
                 });
-            
-            // Apply zoom to container
-            d3.select(mermaidContainer3).call(zoomBehavior3);
-            
-            // Set initial zoom to a reasonable scale
-            setTimeout(() => {
-                d3.select(mermaidContainer3).call(
-                    zoomBehavior3.transform,
-                    d3.zoomIdentity.scale(3.5)
-                );
-            }, 100);
-            
-            // Enable wheel zoom
-            mermaidContainer3.addEventListener('wheel', function(e) {
-                e.preventDefault();
-            });
+                
+                console.log('Zoom initialized successfully for diagram 3');
+            } catch (error) {
+                console.error('Error initializing zoom for diagram 3:', error);
+            }
         }
 
         function zoomIn3() {
